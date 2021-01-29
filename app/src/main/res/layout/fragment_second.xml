@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SecondFragment"
+    android:layout_margin="20dp">
+
+    <TextView
+        android:id="@+id/frag2_tvTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/frag2_etTitulo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/purple_200"
+        android:text="@string/titulo_peli"
+        android:textSize="22sp" />
+
+    <EditText
+        android:id="@+id/frag2_etTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/frag2_tvGenero"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frag2_tvTitulo"
+        android:textColor="@color/purple_700"/>
+
+    <TextView
+        android:id="@+id/frag2_tvGenero"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/frag2_etGenero"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frag2_etTitulo"
+        android:textColor="@color/purple_200"
+        android:text="@string/genero_peli"
+        android:textSize="22sp"/>
+
+    <EditText
+        android:id="@+id/frag2_etGenero"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/frag2_tvFecha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frag2_tvGenero"
+        android:textColor="@color/purple_700"/>
+
+    <TextView
+        android:id="@+id/frag2_tvFecha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/frag2_etFecha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frag2_etGenero"
+        android:textColor="@color/purple_200"
+        android:text="@string/fecha_peli"
+        android:textSize="22sp"/>
+
+    <EditText
+        android:id="@+id/frag2_etFecha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/purple_700"
+        app:layout_constraintBottom_toTopOf="@id/frag2_bInsertar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frag2_tvFecha" />
+
+    <Button
+        android:id="@+id/frag2_bInsertar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="@string/action_insertar"
+        app:layout_constraintBottom_toTopOf="@id/frag2_bModificar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frag2_etFecha" />
+
+    <Button
+        android:id="@+id/frag2_bModificar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/action_modificar"
+        app:layout_constraintBottom_toTopOf="@id/frag2_bBorrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frag2_bInsertar" />
+
+    <Button
+        android:id="@+id/frag2_bBorrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/action_borrar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frag2_bModificar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

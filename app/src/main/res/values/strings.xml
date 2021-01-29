@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">RecyclerView</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="noPelicula">No hay ninguna película</string>
+    <string name="titulo_peli">Título de la película</string>
+    <string name="genero_peli">Género de la película</string>
+    <string name="fecha_peli">Fecha de la película</string>
+    <string name="action_insertar">Insertar</string>
+    <string name="action_modificar">Modificar</string>
+    <string name="action_borrar">Borrar</string>
+</resources>
