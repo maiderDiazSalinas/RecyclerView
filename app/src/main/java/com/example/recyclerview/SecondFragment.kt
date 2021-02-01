@@ -30,6 +30,22 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        titulo=view.findViewById(R.id.frag2_etTitulo)
+        genero=view.findViewById(R.id.frag2_etGenero)
+        fecha=view.findViewById(R.id.frag2_etFecha)
+
+        val posicion: Int? = arguments?.getInt("posicion")
+        if(posicion!=null){
+            titulo.setText((activity?.application as Aplicacion).listaPeliculas[posicion].titulo)
+            genero.setText((activity?.application as Aplicacion).listaPeliculas[posicion].genero)
+            fecha.setText((activity?.application as Aplicacion).listaPeliculas[posicion].fecha)
+            view.findViewById<Button>(R.id.frag2_bInsertar).setEnabled(false)
+        }
+        else{
+            view.findViewById<Button>(R.id.frag2_bModificar).setEnabled(false)
+            view.findViewById<Button>(R.id.frag2_bBorrar).setEnabled(false)
+        }
+
         view.findViewById<Button>(R.id.frag2_bInsertar).setOnClickListener{
             if (validar(view)){
                 (activity?.application as Aplicacion).listaPeliculas.add(Pelicula(titulo.text.toString(), genero.text.toString(), fecha.text.toString()))
@@ -41,9 +57,9 @@ class SecondFragment : Fragment() {
             if (validar(view)){
                 val posicion: Int? = arguments?.getInt("posicion")
                 if (posicion!=null) {
-                    (activity?.application as Aplicacion).listaPeliculas[posicion].titulo = this.titulo.text.toString()
-                    (activity?.application as Aplicacion).listaPeliculas[posicion].genero = this.genero.text.toString()
-                    (activity?.application as Aplicacion).listaPeliculas[posicion].fecha = this.fecha.text.toString()
+                    (activity?.application as Aplicacion).listaPeliculas[posicion].titulo = titulo.text.toString()
+                    (activity?.application as Aplicacion).listaPeliculas[posicion].genero = genero.text.toString()
+                    (activity?.application as Aplicacion).listaPeliculas[posicion].fecha = fecha.text.toString()
                     Toast.makeText(activity,"Pelicula modificada",Toast.LENGTH_SHORT).show()
                 }
             }
@@ -61,9 +77,6 @@ class SecondFragment : Fragment() {
 
     fun validar(view:View):Boolean{
         var errores=""
-        titulo=view.findViewById<EditText>(R.id.frag2_etTitulo)
-        genero=view.findViewById<EditText>(R.id.frag2_etGenero)
-        fecha=view.findViewById<EditText>(R.id.frag2_etFecha)
         if(titulo.text.isEmpty()) errores+="Tienes que insertar un título"
         if(genero.text.isEmpty()) errores+="Tienes que insertar un genero"
         if(fecha.text.isEmpty()) errores+="Tienes que insertar un fecha"

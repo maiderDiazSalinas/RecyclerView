@@ -31,7 +31,7 @@ class FirstFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_first, container, false)
 
         misPeliculas= (activity?.application as Aplicacion).listaPeliculas
-        //InsertarDatos()
+
         this.miAdaptador= PeliculaAdapter(misPeliculas,activity as Context,activity as Activity)
         if(misPeliculas.size==0){
             rootView.findViewById<TextView>(R.id.frag1_texto).visibility=View.VISIBLE
@@ -57,12 +57,5 @@ class FirstFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         miAdaptador.notifyDataSetChanged()
-    }
-
-    fun InsertarDatos(){
-        misPeliculas.add(Pelicula("La joven del agua", "Fantasia","2002"))
-        misPeliculas.add(Pelicula("Django desencadenado", "Western","2012"))
-        misPeliculas.add(Pelicula("La profecía", "Terror","1984"))
-        misPeliculas.add(Pelicula("Minority report", "Ciencia ficción","1998"))
     }
 }
