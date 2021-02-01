@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:text="@string/noPelicula"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:textColor="@color/purple_700"
         android:textAlignment="center"
         android:visibility="gone"/>

@@ -1,5 +1,5 @@
 package com.example.recyclerview
 
-class Pelicula(val titulo:String, val genero:String, val fecha:String) {
+class Pelicula(var titulo:String, var genero:String, var fecha:String) {
 
 }

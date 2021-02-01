@@ -1,5 +1,6 @@
 package com.example.recyclerview
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -29,8 +30,9 @@ class FirstFragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_first, container, false)
 
-        //misPeliculas= (activity?.application as Aplicacion).listaPeliculas
-        InsertarDatos()
+        misPeliculas= (activity?.application as Aplicacion).listaPeliculas
+        //InsertarDatos()
+        this.miAdaptador= PeliculaAdapter(misPeliculas,activity as Context,activity as Activity)
         if(misPeliculas.size==0){
             rootView.findViewById<TextView>(R.id.frag1_texto).visibility=View.VISIBLE
             rootView.findViewById<RecyclerView>(R.id.recyclerView).visibility=View.GONE
@@ -38,7 +40,6 @@ class FirstFragment : Fragment() {
         else{
             rootView.findViewById<TextView>(R.id.frag1_texto).visibility=View.GONE
             rootView.findViewById<RecyclerView>(R.id.recyclerView).visibility=View.VISIBLE
-            this.miAdaptador= PeliculaAdapter(misPeliculas,activity as Context)
             this.miRecyclerView=rootView.findViewById(R.id.recyclerView)
             miRecyclerView.layoutManager=LinearLayoutManager(activity)
             miRecyclerView.itemAnimator = DefaultItemAnimator()

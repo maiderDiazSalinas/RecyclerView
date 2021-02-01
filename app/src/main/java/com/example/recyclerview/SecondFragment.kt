@@ -15,6 +15,10 @@ import androidx.navigation.fragment.findNavController
  */
 class SecondFragment : Fragment() {
 
+    lateinit var titulo:EditText
+    lateinit var genero:EditText
+    lateinit var fecha:EditText
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -26,36 +30,47 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<EditText>(R.id.frag2_bInsertar).setOnClickListener{
-            if (validar()){
-                //(activity?.application as Aplicacion).listaPeliculas.add(Pelicula(titulo, genero, fecha))
-                //Toast.makeText(activity,"Pelicula creada",Toast.LENGTH_SHORT)
+        view.findViewById<Button>(R.id.frag2_bInsertar).setOnClickListener{
+            if (validar(view)){
+                (activity?.application as Aplicacion).listaPeliculas.add(Pelicula(titulo.text.toString(), genero.text.toString(), fecha.text.toString()))
+                Toast.makeText(activity,"Pelicula creada",Toast.LENGTH_SHORT).show()
             }
         }
 
-        view.findViewById<EditText>(R.id.frag2_bModificar).setOnClickListener{
-            if (validar()){
-                //(activity?.application as Aplicacion).listaPeliculas.add(Pelicula(titulo, genero, fecha))
-                //Toast.makeText(activity,"Pelicula modificada",Toast.LENGTH_SHORT)
+        view.findViewById<Button>(R.id.frag2_bModificar).setOnClickListener{
+            if (validar(view)){
+                val posicion: Int? = arguments?.getInt("posicion")
+                if (posicion!=null) {
+                    (activity?.application as Aplicacion).listaPeliculas[posicion].titulo = this.titulo.text.toString()
+                    (activity?.application as Aplicacion).listaPeliculas[posicion].genero = this.genero.text.toString()
+                    (activity?.application as Aplicacion).listaPeliculas[posicion].fecha = this.fecha.text.toString()
+                    Toast.makeText(activity,"Pelicula modificada",Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
-        view.findViewById<EditText>(R.id.frag2_bBorrar).setOnClickListener{
-            //(activity?.application as Aplicacion).listaPeliculas.add(Pelicula(titulo, genero, fecha))
-            //Toast.makeText(activity,"Pelicula borrada",Toast.LENGTH_SHORT)
+        view.findViewById<Button>(R.id.frag2_bBorrar).setOnClickListener{
+            val posicion: Int? = arguments?.getInt("posicion")
+            if (posicion!=null) {
+                (activity?.application as Aplicacion).listaPeliculas.removeAt(posicion)
+                Toast.makeText(activity,"Pelicula eliminada",Toast.LENGTH_SHORT).show()
+            }
         }
 
     }
 
-    fun validar():Boolean{
-        var errores:String=""
-        val titulo:EditText=view.findViewById<EditText>(R.id.frag2_etTitulo)
-        val genero:EditText=view.findViewById<EditText>(R.id.frag2_etGenero)
-        val fecha:EditText=view.findViewById<EditText>(R.id.frag2_etFecha)
+    fun validar(view:View):Boolean{
+        var errores=""
+        titulo=view.findViewById<EditText>(R.id.frag2_etTitulo)
+        genero=view.findViewById<EditText>(R.id.frag2_etGenero)
+        fecha=view.findViewById<EditText>(R.id.frag2_etFecha)
         if(titulo.text.isEmpty()) errores+="Tienes que insertar un título"
         if(genero.text.isEmpty()) errores+="Tienes que insertar un genero"
         if(fecha.text.isEmpty()) errores+="Tienes que insertar un fecha"
-        if(errores!="") Toast.makeText(activity,"$errores",Toast.LENGTH_SHORT);return false
+        if(errores!="") {
+            Toast.makeText(activity,"$errores",Toast.LENGTH_SHORT).show()
+            return false
+        }
         return true
     }
 }
