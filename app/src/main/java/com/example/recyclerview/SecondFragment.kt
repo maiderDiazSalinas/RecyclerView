@@ -50,6 +50,7 @@ class SecondFragment : Fragment() {
             if (validar(view)){
                 (activity?.application as Aplicacion).listaPeliculas.add(Pelicula(titulo.text.toString(), genero.text.toString(), fecha.text.toString()))
                 Toast.makeText(activity,"Pelicula creada",Toast.LENGTH_SHORT).show()
+                (activity as MainActivity).navHost.navController.navigate(R.id.action_SecondFragment_to_FirstFragment)
             }
         }
 
@@ -61,6 +62,7 @@ class SecondFragment : Fragment() {
                     (activity?.application as Aplicacion).listaPeliculas[posicion].genero = genero.text.toString()
                     (activity?.application as Aplicacion).listaPeliculas[posicion].fecha = fecha.text.toString()
                     Toast.makeText(activity,"Pelicula modificada",Toast.LENGTH_SHORT).show()
+                    (activity as MainActivity).navHost.navController.navigate(R.id.action_SecondFragment_to_FirstFragment)
                 }
             }
         }
@@ -70,6 +72,7 @@ class SecondFragment : Fragment() {
             if (posicion!=null) {
                 (activity?.application as Aplicacion).listaPeliculas.removeAt(posicion)
                 Toast.makeText(activity,"Pelicula eliminada",Toast.LENGTH_SHORT).show()
+                (activity as MainActivity).navHost.navController.navigate(R.id.action_SecondFragment_to_FirstFragment)
             }
         }
 

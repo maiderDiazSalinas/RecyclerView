@@ -51,4 +51,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        (application as Aplicacion).GuardarDatos()
+    }
+
 }
