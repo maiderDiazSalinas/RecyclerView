@@ -1,12 +1,14 @@
 package com.example.recyclerview
 
+import android.Manifest
 import android.app.Application
+import android.content.pm.PackageManager
 import android.util.Log
+import android.view.View
 import android.widget.Toast
-import java.io.BufferedReader
-import java.io.BufferedWriter
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import java.io.*
 
 class Aplicacion : Application() {
 
@@ -15,7 +17,8 @@ class Aplicacion : Application() {
     override fun onCreate() {
         super.onCreate()
         //InsertarDatos()
-        SacarDatos()
+        //SacarDatos()
+        SacarDatosExterno()
     }
 
     /*fun InsertarDatos(){
@@ -27,9 +30,11 @@ class Aplicacion : Application() {
 
     fun GuardarDatos(){
         try {
-            val fout = BufferedWriter(
-                OutputStreamWriter(
-                    openFileOutput("peliculas.txt", MODE_PRIVATE)))
+                val fout = BufferedWriter(
+                    OutputStreamWriter(
+                        openFileOutput("peliculas.txt", MODE_PRIVATE)
+                    )
+                )
 
             for (pelicula in listaPeliculas){
                 fout.write(pelicula.titulo)
@@ -78,4 +83,69 @@ class Aplicacion : Application() {
             Log.e("Ficheros", "Error al leer fichero desde memoria interna")
         }
     }
+    fun GuardaDatosExterno() {
+        try {
+            val ruta_sd = getExternalFilesDir("/mnt/sd_card")
+
+            val f = File(ruta_sd?.getAbsolutePath(), "prueba_sd.txt")
+
+            val fout = BufferedWriter(OutputStreamWriter(
+                FileOutputStream(f)))
+
+            for (pelicula in listaPeliculas){
+                fout.write(pelicula.titulo)
+                fout.newLine()
+                fout.write(pelicula.genero)
+                fout.newLine()
+                fout.write(pelicula.fecha)
+                fout.newLine()
+            }
+
+            fout.close()
+            Toast.makeText(this, "Fichero creado externo", Toast.LENGTH_LONG).show()
+        } catch (ex: Exception) {
+            Log.e("Ficheros", "Error al escribir fichero a tarjeta SD")
+        }
+
+    }
+
+    fun SacarDatosExterno() {
+        try {
+            val ruta_sd = getExternalFilesDir("/mnt/sd_card")
+
+            val f = File(ruta_sd?.getAbsolutePath(), "prueba_sd.txt")
+
+            val fin = BufferedReader(
+                InputStreamReader(
+                    FileInputStream(f)
+                ))
+
+            var titulo:String=""
+            var genero:String=""
+            var fecha:String=""
+            var linea:String?=null
+            var num:Int=0
+            do{
+                if(linea!=null) {
+                    num++
+                    if (num==1) titulo=linea
+                    else if(num==2) genero=linea
+                    else if(num==3) {
+                        fecha=linea
+                        num=0
+                    }
+                    if(num==0) listaPeliculas.add(Pelicula(titulo,genero,fecha))
+                }
+                linea=fin.readLine()
+                //Toast.makeText(this, linea, Toast.LENGTH_LONG).show()
+            }while(linea!=null)
+
+            fin.close()
+        } catch (ex: Exception) {
+            Log.e("Ficheros", "Error al leer fichero desde tarjeta SD")
+        }
+
+    }
+
+
 }

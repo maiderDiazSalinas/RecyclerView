@@ -1,5 +1,7 @@
 package com.example.recyclerview
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -7,6 +9,9 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -47,6 +52,10 @@ class MainActivity : AppCompatActivity() {
                 navHost.navController.navigate(R.id.action_FirstFragment_to_SecondFragment)
                 true
             }
+            R.id.action_guardar -> {
+                PermisoFicheroExterno()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -54,6 +63,45 @@ class MainActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         (application as Aplicacion).GuardarDatos()
+    }
+
+    private val MY_PERMISSIONS_WRITE_FILE = 1
+    fun PermisoFicheroExterno() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+            //When permission is not granted by user, show them message why this permission is needed.
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                Toast.makeText(this, "Se necesita permiso para acceder a ficheros externos", Toast.LENGTH_LONG)
+                    .show()
+            }
+            //Give user option to still opt-in the permissions
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                MY_PERMISSIONS_WRITE_FILE)
+
+        } else if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+
+                    Toast.makeText(this, "Permiso garantizado a ficheros externos", Toast.LENGTH_LONG).show()
+                    (application as Aplicacion).GuardaDatosExterno()
+        }
+    }
+
+    //Handling callback
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            MY_PERMISSIONS_WRITE_FILE -> {
+                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    (application as Aplicacion).GuardaDatosExterno()
+                } else {
+                    Toast.makeText(this, "Permiso denegado para guardar en un fichero externo", Toast.LENGTH_LONG).show()
+                }
+                return
+            }
+        }
     }
 
 }
